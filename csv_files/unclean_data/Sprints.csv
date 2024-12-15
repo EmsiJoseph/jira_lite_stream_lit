@@ -1,0 +1,51 @@
+SprintID,TaskID,SprintName,SprintGoal
+5,135,Sprint_2,Goal 1
+8,149,Sprint_4,
+5,197,Sprint_10,Goal 2
+6,189,Sprint_5,
+4,140,Sprint_9,
+6,105,Sprint_3,
+3,103,Sprint_4,Goal 3
+9,141,Sprint_4,Goal 1
+2,116,Sprint_7,
+4,135,Sprint_5,
+6,100,Sprint_10,Goal 3
+8,139,Sprint_8,Goal 1
+5,168,Sprint_10,
+9,112,Sprint_1,Goal 2
+5,113,Sprint_8,
+5,146,Sprint_3,Goal 3
+4,143,Sprint_3,
+6,190,Sprint_7,Goal 1
+1,109,Sprint_9,Goal 2
+10,111,Sprint_10,Goal 1
+8,115,Sprint_7,
+1,199,Sprint_10,Goal 2
+2,170,Sprint_5,
+3,130,Sprint_4,Goal 3
+2,143,Sprint_8,
+10,150,Sprint_3,Goal 2
+4,178,Sprint_7,Goal 1
+8,150,Sprint_4,Goal 2
+9,114,Sprint_5,Goal 2
+6,112,Sprint_7,Goal 1
+2,147,Sprint_4,Goal 3
+1,143,Sprint_10,
+8,192,Sprint_4,Goal 2
+5,120,Sprint_1,Goal 1
+9,126,Sprint_3,
+1,115,Sprint_9,Goal 3
+9,147,Sprint_10,Goal 3
+5,120,Sprint_3,Goal 3
+9,147,Sprint_8,Goal 1
+3,197,Sprint_10,Goal 1
+2,193,Sprint_7,Goal 2
+10,109,Sprint_10,Goal 3
+4,106,Sprint_7,Goal 2
+2,128,Sprint_6,Goal 3
+10,171,Sprint_1,Goal 1
+10,157,Sprint_4,Goal 3
+3,199,Sprint_6,
+5,191,Sprint_10,Goal 2
+9,149,Sprint_3,
+3,137,Sprint_6,Goal 1
