@@ -208,8 +208,8 @@ class TaskMainUI:
 
             # Upload Rejected Data to Azure Blob
             if st.button("⬆️ Upload Rejected Data"):
-                connection_string = os.getenv("AZURE_BLOB_CONNECTION_STRING")
-                container_name = os.getenv("AZURE_BLOB_CONTAINER_NAME")
+                connection_string = st.session_state.connection_string
+                container_name = st.session_state.container_name
                 upload_to_azure_blob(
                     rejected_data,
                     connection_string,
@@ -227,6 +227,7 @@ class TaskMainUI:
                     file_name=rejected_data_file,
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 )
+            os.remove(rejected_data_file)  # Delete the temporary file
 
             # Add space above the navigation buttons
             st.markdown("<br>", unsafe_allow_html=True)

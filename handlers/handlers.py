@@ -128,7 +128,7 @@ def handle_add_or_update_task_list(
             # Append to the Task List
             task_list.add_or_update_task(task_properties)
         except Exception as e:
-            print(e)
+            # print(e)
 
 
 def handle_saving_cleaned_and_rejected_data(

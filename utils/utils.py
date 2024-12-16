@@ -8,10 +8,13 @@ import os
 """
     Convert empty csv values from NaN to None
 """
+
+
 def convert_nan_to_none_in_dict(input_dict: dict):
     for key, value in input_dict.items():
         if pd.isna(value):  # Check if the value is NaN
             input_dict[key] = None  # Replace NaN with None
+
 
 def show_error(message: str):
     st.error(message, icon="❌")
@@ -47,7 +50,7 @@ def upload_to_azure_blob(
         elif file_type == "xlsx":
             with pd.ExcelWriter(file_name) as writer:
                 for sheet_name, df in data.items():
-                    if not df.empty:
+                    if df is not None and not df.empty:
                         df.to_excel(writer, sheet_name=sheet_name, index=False)
             with open(file_name, "rb") as f:
                 blob_client.upload_blob(f, overwrite=True)
@@ -93,6 +96,7 @@ def require_a_value_in_dict(dict: dict, key_of_required_val):
         return False
 
     return True
+
 
 def format_friendly_date(date_str):
     if pd.isna(date_str) or not date_str:
