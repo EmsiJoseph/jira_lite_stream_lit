@@ -127,8 +127,8 @@ def handle_add_or_update_task_list(
 
             # Append to the Task List
             task_list.add_or_update_task(task_properties)
-        except Exception as e:
-            # print(e)
+        except Exception:
+            None
 
 
 def handle_saving_cleaned_and_rejected_data(
@@ -150,8 +150,8 @@ def handle_saving_cleaned_and_rejected_data(
     #     # Convert the rejected arr of dict to dataframes
     #     rejected_df = pd.DataFrame(rejected)
 
-        # # Save the DataFrame to a temporary excel file which you can call anytime
-        # rejected_df.to_excel(temp_excel_file, index=False)
+    # # Save the DataFrame to a temporary excel file which you can call anytime
+    # rejected_df.to_excel(temp_excel_file, index=False)
 
 
 # # MAAAAIINN
