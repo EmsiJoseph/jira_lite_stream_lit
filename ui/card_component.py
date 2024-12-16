@@ -2,8 +2,10 @@ import streamlit as st
 from utils.utils import format_friendly_date
 import random
 
+
 def truncate_text(text, max_length=100):
     return text[:max_length] + "..." if len(text) > max_length else text
+
 
 def format_assignees(assignees, max_length=100):
     if assignees == "No assignee/s":
@@ -15,7 +17,12 @@ def format_assignees(assignees, max_length=100):
             for assignee in assignee_list
         ]
     )
-    return truncate_text(formatted_assignees, max_length) + ", and more" if len(formatted_assignees) > max_length else formatted_assignees
+    return (
+        truncate_text(formatted_assignees, max_length) + ", and more"
+        if len(formatted_assignees) > max_length
+        else formatted_assignees
+    )
+
 
 def get_sprint_color(sprint_name):
     if sprint_name == "No Sprint":
@@ -23,12 +30,15 @@ def get_sprint_color(sprint_name):
     random.seed(int(sprint_name.split("_")[1]))
     return "#{:06x}".format(random.randint(0, 0xFFFFFF))
 
+
 def format_sprint_name(sprint_name):
     return sprint_name.replace("_", " ") if sprint_name != "No Sprint" else sprint_name
+
 
 def get_priority_color(priority):
     priority_colors = {"High": "#FF0000", "Medium": "#FFA500", "Low": "#008000"}
     return priority_colors.get(priority, "#1E1E1E")
+
 
 def get_text_color(bg_color):
     bg_color = bg_color.lstrip("#")
@@ -36,10 +46,13 @@ def get_text_color(bg_color):
     brightness = (r * 299 + g * 587 + b * 114) / 1000
     return "black" if brightness > 128 else "white"
 
+
 def display_task_card(task):
     task_name = task["TaskName"] if task["TaskName"] else "No Task Name"
     description = task["Description"] if task["Description"] else "No description"
-    assignee = task["AssigneeName-Role"] if task["AssigneeName-Role"] else "No assignee/s"
+    assignee = (
+        task["AssigneeName-Role"] if task["AssigneeName-Role"] else "No assignee/s"
+    )
     sprint = task["SprintName"] if task["SprintName"] else "No Sprint"
     priority = task["Priority"] if task["Priority"] else "No Priority"
     formatted_assignees = format_assignees(assignee)

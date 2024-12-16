@@ -51,7 +51,7 @@ def combine_assignee_and_role(row, assignee_name_col, role_col):
     if row[assignee_name_col] and row[role_col]:
         return f"{row[assignee_name_col]}-{row[role_col]}"
     elif row[assignee_name_col]:
-        return f"{row[assignee_name_col]}-"
+        return f"{row[assignee_name_col]}"
     elif row[role_col]:
         return f"-{row[role_col]}"
     else:

@@ -36,23 +36,47 @@ def implement_assignees_cleanup_constraints(assignee: dict):
     # 01 Require AssigneeName-Role to have value
     assignee_name_has_val = require_a_value_in_dict(assignee, assignee_name_role_col)
     if not assignee_name_has_val:
-        return assignee_name_has_val
-    
+        return assignee_name_has_val  # False
+
     # 02 AssigneeName + Role OR AssigneeName ONLY is acceptable
     if assignee_name_role_col in assignee:
-        left, right = assignee[assignee_name_role_col].split("-", 1) 
+        left, sep, right = assignee[assignee_name_role_col].partition("-")
         has_name = bool(left.strip())
-        
+
         if not has_name:
             return False
-    
+
     return True
 
 
-# def merge_assignee_name_and_role_col(assignee: dict):
-#     has_passed = implement_assignees_cleanup_constraints(assignee)
-#     if not has_passed:
-#         return has_passed
+def check_two_entries_of_same_task_id(entry: list, clean: list):
+    if len(entry) == 2:
+        # Both are equal but both not empty
+        if entry[0] and entry[0] == entry[1]:
+            clean.append(entry[0])
+            return True
+    
+    return False
+            
+def single_entry_check(entry: list, clean: list, rejected: list):
+    # Every other CSV Cleanup
+    if len(entry) == 1:
+        single_entry = entry[0]
+        # 01 Tasks Cleanup Constraints
+        is_passed_task_constraints = implement_task_cleanup_constraints(
+            single_entry
+        )
+        if not is_passed_task_constraints:
+            rejected.extend(entry)
+            return True
 
-#     # Begin the merge logic
-#     if assignee_name_col in assignee and role_col in assignee:
+        # 02 General Constraint: Require at least 1 value except for TaskID
+        has_min_of_one_value = require_one_value_except_task_id(single_entry)
+        if not has_min_of_one_value:
+            rejected.extend(entry)
+            return True
+
+        clean.append(entry[0])
+        return True
+    
+    return False
