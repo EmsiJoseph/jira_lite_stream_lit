@@ -116,20 +116,25 @@ def show_taskanban():
         )
 
     selected_sprint_value = selected_sprint_label.replace(" ", "_")
-
-    if st.button("⬆️ Upload to Azure"):
-        connection_string = st.session_state.connection_string
-        container_name = st.session_state.container_name
-        try:
-            upload_to_azure_blob(
-                merged_data,
-                connection_string,
-                container_name,
-                latest_version,
-                file_type="csv",
-            )
-        except Exception as e:
-            show_error(f"Error uploading data to Azure: {e}")
+    if st.session_state.connection_string and st.session_state.container_name:
+        if st.button("⬆️ Upload to Azure"):
+            connection_string = st.session_state.connection_string
+            container_name = st.session_state.container_name
+            try:
+                upload_to_azure_blob(
+                    merged_data,
+                    connection_string,
+                    container_name,
+                    latest_version,
+                    file_type="csv",
+                )
+            except Exception as e:
+                show_error(f"Error uploading data to Azure: {e}")
+    else:
+        st.warning("Please configure Azure Blob settings to upload data.")
+        if st.button("Go to Settings"):
+            st.session_state.page = "Settings"
+            st.rerun()
 
     save_to_device(merged_data, latest_version, "💾 Download to Device", "merged_data")
 
@@ -141,7 +146,7 @@ def show_taskanban():
             c.execute("DELETE FROM merged_data WHERE version = ?", (selected_version,))
         conn.commit()
         conn.close()
-        show_error("Merged Data Version {selected_version} deleted successfully.")
+        show_error(f"Merged Data Version {selected_version} deleted successfully.")
         time.sleep(2)
         st.rerun()
 

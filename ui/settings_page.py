@@ -49,3 +49,15 @@ def show_settings():
         st.session_state.connection_string = connection_string
         st.session_state.container_name = container_name
         st.success("Configuration saved successfully.")
+        conn.close()
+        st.rerun()
+
+    if st.button(
+        "Clear Configuration", disabled=not container_name and not connection_string
+    ):
+        save_config(c, conn, "", "")
+        st.session_state.connection_string = ""
+        st.session_state.container_name = ""
+        st.success("Configuration cleared successfully.")
+        conn.close()
+        st.rerun()

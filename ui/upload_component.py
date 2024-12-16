@@ -107,8 +107,8 @@ def upload_files():
     st.subheader("Option 2: Download from Azure Blob")
 
     if not st.session_state.connection_string or not st.session_state.container_name:
-        st.write("Setup your connection in settings first.")
-        if st.button("Go to Settings"):
+        st.warning("Please configure Azure Blob settings to fetch files.")
+        if st.button("Go to Settings", key="settings_button"):
             st.session_state.page = "Settings"
             st.rerun()
     else:

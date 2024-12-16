@@ -173,7 +173,7 @@ class TaskMainUI:
                         file_type="csv",
                     )
             else:
-                st.write("Setup your connection in settings first to upload to azure.")
+                st.warning("Please configure Azure Blob settings to upload data.")
                 if st.button("Go to Settings", key="settings_button"):
                     st.session_state.page = "Settings"
                     st.rerun()
@@ -225,8 +225,9 @@ class TaskMainUI:
                         file_type="xlsx",
                         file_name="rejected_data",
                     )
+
             else:
-                st.write("Setup your connection in settings first to upload to azure.")
+                st.warning("Please configure Azure Blob settings to upload data.")
                 if st.button("Go to Settings"):
                     st.session_state.page = "Settings"
                     st.rerun()
@@ -239,7 +240,6 @@ class TaskMainUI:
                     file_name=rejected_data_file,
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 )
-            os.remove(rejected_data_file)  # Delete the temporary file
 
             # Add space above the navigation buttons
             st.markdown("<br>", unsafe_allow_html=True)
@@ -249,6 +249,7 @@ class TaskMainUI:
             with col1:
                 if st.button("Process Again", type="secondary"):
                     self.restart_process()
+
             with col5:
                 if st.button("View in TasKanban", type="primary"):
                     conn, c = init_db()

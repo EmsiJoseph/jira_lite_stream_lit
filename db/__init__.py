@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 # Load or generate a key for encryption
-key_file = "Team Directory/Mc and John Christian/db/secret.key"
+key_file = "db/secret.key"
 if os.path.exists(key_file):
     with open(key_file, "rb") as file:
         key = file.read()
@@ -20,7 +20,7 @@ cipher_suite = Fernet(key)
 
 
 def init_db():
-    conn = sqlite3.connect("Team Directory/Mc and John Christian/db/jira_lite.db")
+    conn = sqlite3.connect("db/jira_lite.db")
     c = conn.cursor()
     c.execute(
         """CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY, connection_string TEXT, container_name TEXT)"""
