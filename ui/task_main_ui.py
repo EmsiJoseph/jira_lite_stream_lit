@@ -161,16 +161,22 @@ class TaskMainUI:
             st.dataframe(merged_data, use_container_width=True, hide_index=True)
 
             # Upload to Azure Blob
-            if st.button("⬆️ Upload Merged Data"):
-                connection_string = st.session_state.connection_string
-                container_name = st.session_state.container_name
-                upload_to_azure_blob(
-                    merged_data,
-                    connection_string,
-                    container_name,
-                    st.session_state.version,
-                    file_type="csv",
-                )
+            if st.session_state.connection_string and st.session_state.container_name:
+                if st.button("⬆️ Upload Merged Data"):
+                    connection_string = st.session_state.connection_string
+                    container_name = st.session_state.container_name
+                    upload_to_azure_blob(
+                        merged_data,
+                        connection_string,
+                        container_name,
+                        st.session_state.version,
+                        file_type="csv",
+                    )
+            else:
+                st.write("Setup your connection in settings first to upload to azure.")
+                if st.button("Go to Settings", key="settings_button"):
+                    st.session_state.page = "Settings"
+                    st.rerun()
 
             # Download Merged Data
             save_to_device(
@@ -207,17 +213,23 @@ class TaskMainUI:
             )
 
             # Upload Rejected Data to Azure Blob
-            if st.button("⬆️ Upload Rejected Data"):
-                connection_string = st.session_state.connection_string
-                container_name = st.session_state.container_name
-                upload_to_azure_blob(
-                    rejected_data,
-                    connection_string,
-                    container_name,
-                    st.session_state.version,
-                    file_type="xlsx",
-                    file_name="rejected_data",
-                )
+            if st.session_state.connection_string and st.session_state.container_name:
+                if st.button("⬆️ Upload Rejected Data"):
+                    connection_string = st.session_state.connection_string
+                    container_name = st.session_state.container_name
+                    upload_to_azure_blob(
+                        rejected_data,
+                        connection_string,
+                        container_name,
+                        st.session_state.version,
+                        file_type="xlsx",
+                        file_name="rejected_data",
+                    )
+            else:
+                st.write("Setup your connection in settings first to upload to azure.")
+                if st.button("Go to Settings"):
+                    st.session_state.page = "Settings"
+                    st.rerun()
 
             # Download Rejected Data
             with open(rejected_data_file, "rb") as f:
