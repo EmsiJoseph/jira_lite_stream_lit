@@ -23,7 +23,7 @@ def filter_tasks(
     if selected_version != "All Versions":
         tasks = tasks[tasks["version"] == selected_version]
     if selected_sprint_value != "All_Sprints":
-        if status == "No Status":
+        if status == "Open":
             tasks = tasks[
                 (tasks["Status"].isna())
                 & (tasks["SprintName"] == selected_sprint_value)
@@ -34,7 +34,7 @@ def filter_tasks(
                 & (tasks["SprintName"] == selected_sprint_value)
             ]
     else:
-        if status == "No Status":
+        if status == "Open":
             tasks = tasks[tasks["Status"].isna()]
         else:
             tasks = tasks[tasks["Status"] == status]
@@ -70,13 +70,13 @@ def show_taskanban():
         st.write("No data available.")
         return
 
-    status_order = ["No Status", "To Do", "In Progress", "Done"]
+    status_order = ["Open", "To Do", "In Progress", "Done"]
     statuses = [
         status
         for status in status_order
         if status in merged_data["Status"].dropna().unique().tolist()
     ]
-    statuses.insert(0, "No Status")
+    statuses.insert(0, "Open")
 
     versions = get_unique_values(merged_data, "version", ["All Versions"])
     sprints = get_unique_values(merged_data, "SprintName", ["All Sprints", "No Sprint"])
